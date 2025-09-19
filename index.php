@@ -1,3 +1,10 @@
+<?php
+    $szoveg = '';
+    if(isset($_POST['topic'])){
+        $szoveg = 'kaptam új topic post adatott!';
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -6,6 +13,7 @@
     <title>Forum</title>
 </head>
 <body>
+    <?php echo $szoveg; ?>
     <h1>Témák:</h1>
     <Form method="post">
         <input type="text" name="topic">
