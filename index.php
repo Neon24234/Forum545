@@ -1,10 +1,12 @@
 <?php
+    $file = 'data.json';
     $szoveg = '';
     if(isset($_POST['topic'])){
         $topics = [];
         array_push($topics, $_POST['topic']);
         $jsonstring = json_encode($topics);
         $szoveg = $jsonstring;
+        file_put_contents($file, $jsonstring);
     }
 ?>
 
