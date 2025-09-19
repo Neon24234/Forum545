@@ -7,5 +7,10 @@
 </head>
 <body>
     <h1>Témák:</h1>
+    <Form method="post">
+        <input type="text" name="topic">
+        <input type="submit" value="add">
+        
+    </Form>
 </body>
 </html>
