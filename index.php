@@ -1,7 +1,10 @@
 <?php
     $szoveg = '';
     if(isset($_POST['topic'])){
-        $szoveg = 'kaptam új topic post adatott!';
+        $topics = [];
+        array_push($topics, $_POST['topic']);
+        $jsonstring = json_encode($topics);
+        $szoveg = $jsonstring;
     }
 ?>
 
