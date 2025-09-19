@@ -1,8 +1,14 @@
 <?php
     $file = 'data.json';
+    if(file_exists($file)){
+        $jsonstring = file_get_contents($file);
+        $topics = json_decode($jsonstring);
+    }
+    else{
+        $topics = [];
+    }
     $szoveg = '';
     if(isset($_POST['topic'])){
-        $topics = [];
         array_push($topics, $_POST['topic']);
         $jsonstring = json_encode($topics);
         $szoveg = $jsonstring;
