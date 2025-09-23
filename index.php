@@ -25,16 +25,19 @@
     <h1>Témák:</h1>
     <ol>
     <?php foreach ($topics as $key => $value) {
-        echo '<li>'. $value;
-
+        echo '<li>'.$value. '
+        <form method="post">
+        <input type="text" name="topic" value="'. $value .'">
+        <input type="text" name="action" value="delete">
+        <input type=submit value="törlesztés">
+        </form>
+        ';
     }?>
     </ol>
-    <br>
     <br>
     <Form method="post">
         <input type="text" name="topic">
         <input type="submit" value="add">
-        
     </Form>
 </body>
 </html>
