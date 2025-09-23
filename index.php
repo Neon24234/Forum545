@@ -27,8 +27,8 @@
     <?php foreach ($topics as $key => $value) {
         echo '<li>'.$value. '
         <form method="post">
-        <input type="text" name="topic" value="'. $value .'">
-        <input type="text" name="action" value="delete">
+        <input type="hidden" name="topic" value="'. $value .'">
+        <input type="hidden" name="action" value="delete">
         <input type=submit value="törlesztés">
         </form>
         ';
@@ -36,6 +36,7 @@
     </ol>
     <br>
     <Form method="post">
+        <input type="hidden" name="action" value="add">
         <input type="text" name="topic">
         <input type="submit" value="add">
     </Form>
