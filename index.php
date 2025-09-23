@@ -23,6 +23,10 @@
 </head>
 <body>
     <h1>Témák:</h1>
+    <?php foreach ($topics as $key => $value) {
+        echo '<li>'.($key+1). '. '. $value;
+        
+    }?>
     <Form method="post">
         <input type="text" name="topic">
         <input type="submit" value="add">
