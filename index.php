@@ -7,11 +7,9 @@
     else{
         $topics = [];
     }
-    $szoveg = '';
     if(isset($_POST['topic'])){
         array_push($topics, $_POST['topic']);
         $jsonstring = json_encode($topics);
-        $szoveg = $jsonstring;
         file_put_contents($file, $jsonstring);
     }
 ?>
@@ -24,7 +22,6 @@
     <title>Forum</title>
 </head>
 <body>
-    <?php echo $szoveg; ?>
     <h1>Témák:</h1>
     <Form method="post">
         <input type="text" name="topic">
