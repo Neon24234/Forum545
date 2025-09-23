@@ -7,10 +7,14 @@
     else{
         $topics = [];
     }
-    if(isset($_POST['topic'])){
+    if(isset($_POST['action'])){
+
+        if($_POST['action']=='add')
+        {
         array_push($topics, $_POST['topic']);
         $jsonstring = json_encode($topics);
         file_put_contents($file, $jsonstring);
+        }
     }
 ?>
 
