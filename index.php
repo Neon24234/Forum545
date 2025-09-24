@@ -26,9 +26,9 @@
         file_put_contents($file, $jsonstring);
         }
         elseif (($_POST['action']=='delete')){
-             $topicId = $_POST['topic'];
+             $Id = $_POST['topic'];
         foreach ($topics as $key => $value) {
-            if ($value->id == $topicId) {
+            if ($value->id == $Id) {
                 unset($topics[$key]);
                 break;
             }
