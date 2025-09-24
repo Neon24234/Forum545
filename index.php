@@ -25,8 +25,16 @@
         $jsonstring = json_encode($topics, JSON_PRETTY_PRINT);
         file_put_contents($file, $jsonstring);
         }
-        elseif (($_POST['action']== 'delete')){
-
+        elseif (($_POST['action']=='delete')){
+             $topicId = $_POST['topic'];
+        foreach ($topics as $key => $value) {
+            if ($value->id == $topicId) {
+                unset($topics[$key]);
+                break;
+            }
+        }
+        $jsonstring = json_encode(array_values($topics), JSON_PRETTY_PRINT);
+        file_put_contents($file, $jsonstring);
         }
     }
 ?>
