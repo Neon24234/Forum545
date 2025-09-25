@@ -26,14 +26,16 @@
         file_put_contents($file, $jsonstring);
         }
         elseif (($_POST['action']=='delete')){
-             $Id = $_POST['topic'];
+             $id = $_POST['id'];
         foreach ($topics as $key => $value) {
-            if ($value->id == $Id) {
-                unset($topics[$key]);
+            if ($value->id == $id) {
+                //unset($topics[$key]);
+                array_splice($topics,$key,1);
                 break;
             }
         }
-        $jsonstring = json_encode(array_values($topics), JSON_PRETTY_PRINT);
+        //$jsonstring = json_encode(array_values($topics), JSON_PRETTY_PRINT);
+        $jsonstring = json_encode($topics, JSON_PRETTY_PRINT);
         file_put_contents($file, $jsonstring);
         }
     }
@@ -52,7 +54,7 @@
     <?php foreach ($topics as $value) {
         echo '<li>'.$value->name. '
         <form method="post">
-        <input type="hidden" name="topic" value="'. $value->id .'">
+        <input type="hidden" name="id" value="'. $value->id .'">
         <input type="hidden" name="action" value="delete">
         <input type=submit value="törlesztés">
         </form>
