@@ -7,6 +7,7 @@
     else{
         $topics = [];
     }
+    $time = date("Y. n. j. H:i:s");
     if(isset($_POST['action'])){
         $lastId = 0;
         if (!empty ($topics)) {
@@ -19,13 +20,14 @@
         array_push($topics, 
         (object)[
             "id" => $newId,
-            "name" => $_POST['topic']          
+            "name" => $_POST['topic'],
+            "time" => $time
             ]
         );
         $jsonstring = json_encode($topics, JSON_PRETTY_PRINT);
         file_put_contents($file, $jsonstring);
         }
-        elseif (($_POST['action']=='delete')){
+        elseif (($_POST['action']=='delete') && ($_POST['test'] == 'value1')){
              $id = $_POST['id'];
         foreach ($topics as $key => $value) {
             if ($value->id == $id) {
@@ -56,7 +58,8 @@
         <form method="post">
         <input type="hidden" name="id" value="'. $value->id .'">
         <input type="hidden" name="action" value="delete">
-        <input type=submit value="törlesztés">
+        <input type=submit value="törlesztés"> <input type="checkbox" name="test" value="value1">
+        <p>'. $value->time. '</p>
         </form>
         ';
     }?>
