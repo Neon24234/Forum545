@@ -7,6 +7,10 @@
     else{
         $topics = [];
     }
+    if(isset($_GET['comment'])){
+
+    }
+
     $time = date("Y. n. j. H:i:s");
     if(isset($_POST['action'])){
         $lastId = 0;
@@ -53,16 +57,22 @@
 <body>
     <h1>Témák:</h1>
     <ol>
-    <?php foreach ($topics as $value) {
-        echo '<li>'.$value->name. '
+    <?php
+        if(!isset($_GET['topic'])){
+        foreach ($topics as $value) {
+        echo '<li><a href="index.php?topic=' . $value->id . '">'. $value->name . '</a> +'. $value->time . '
         <form method="post">
         <input type="hidden" name="id" value="'. $value->id .'">
         <input type="hidden" name="action" value="delete">
         <input type=submit value="törlesztés"> <input type="checkbox" name="test" value="value1">
-        <p>'. $value->time. '</p>
         </form>
         ';
-    }?>
+        }
+    }else{
+        echo '<h1>na itt kell megírni az új részt. topic ID: ' . $_GET['topic'].'</h1>';
+        echo '<a href=index.php>Vissza a témákhoz</a>';
+    }
+    ?>
     </ol>
     <br>
     <Form method="post">
@@ -70,5 +80,17 @@
         <input type="text" name="topic">
         <input type="submit" value="add">
     </Form>
+    <br>
+    <?php
+
+if (isset($_GET['comment'])) {
+  echo "Az utolsó kapott érték: ".$_GET['comment'];        
+}
+
+?>
+    <form method="GET">
+        <input type="text" name="comment">
+        <input type="submit" value ="add comment">
+    </form>
 </body>
 </html>
