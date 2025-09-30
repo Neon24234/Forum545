@@ -7,6 +7,14 @@
     else{
         $topics = [];
     }
+    $comments_file = 'comment.json';
+    if (file_exists($comments_file)) {
+    $comments_json = file_get_contents($comments_file);
+    $comments = json_decode($comments_json, true); // asszociatív tömbként
+    }
+    else{
+        $comments = [];
+    }
     if(isset($_GET['comment'])){
 
     }
@@ -70,7 +78,8 @@
         }
     }else{
         echo '<h1>na itt kell megírni az új részt. topic ID: ' . $_GET['topic'].'</h1>';
-        echo '<a href=index.php>Vissza a témákhoz</a>';
+        echo '<a href=index.php>Vissza a témákhoz</a>';      
+        
     }
     ?>
     </ol>
@@ -88,9 +97,13 @@ if (isset($_GET['comment'])) {
 }
 
 ?>
-    <form method="GET">
+<?php
+    if (isset($_GET['topic'])) {
+    echo '<form method="GET">
         <input type="text" name="comment">
         <input type="submit" value ="add comment">
-    </form>
+    </form>';
+    }
+    ?>
 </body>
 </html>
