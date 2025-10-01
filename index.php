@@ -89,8 +89,15 @@
             echo '<a href=index.php>Vissza a témákhoz</a>';      
             echo '<h3>Comment: </h3>';
             if (isset($comments[$topicID])){
-                foreach($comments[$topicID] as $comment){
-                    echo $comment['name'] . ": ". $comment['comment']. " (" . $comment['time']. ") <br>";
+                foreach($comments[$topicID] as $index => $comment){
+                    echo $comment['name'] . ": ". $comment['comment']. " (" . $comment['time']. ")
+                     <form method = 'post'>
+                     <input type='hidden' name='action' value='delete_comment'>
+                     <input type='hidden' name='topic' value='". $topicName. "'>
+                     <input type='hidden' name='index' value='". $index."'>
+                     <input type='submit' value='Törlés'>
+                     </form>";
+                    
                     echo "<br>";
                 }
             }
@@ -119,7 +126,19 @@
             header("Location: index.php?topic=$topicId");
             exit();
         }
+        if (isset($_POST['action']) && $_POST['action'] === 'delete_comment') {
+        $topicID = $_POST['topic'];
+        $index = (int)$_POST['index'];
 
+        if (isset($comments[$topicID]) && isset($comments[$topicID][$index])) {
+        array_splice($comments[$topicID], $index, 1);
+
+        if (empty($comments[$topicID])) {
+            unset($comments[$topicID]);
+        }
+                file_put_contents($comments_file, json_encode($comments, JSON_PRETTY_PRINT));
+            }
+        }
 
     ?>
     <?php
@@ -132,6 +151,7 @@
             <input type="submit" value ="add comment">
             </form>';
         }
+        print_r($_POST);
         ?>
     </body>
     </html>
