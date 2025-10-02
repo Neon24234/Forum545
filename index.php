@@ -53,6 +53,32 @@
             file_put_contents($file, $jsonstring);
             }
         }
+        
+        if (isset($_GET['comment']) && isset($_GET['topic'])) {   
+            $commentText = trim($_GET['comment']);
+            $commentName = trim($_GET['name']);
+            $topicId = $_GET['topic'];
+            if(!isset($comments[$topicId])){
+                $comments[$topicId] = [];
+            }
+            $comments[$topicId][] = ["comment" => $commentText, "time" => $time, "name" => $commentName];
+            file_put_contents($comments_file, json_encode($comments, JSON_PRETTY_PRINT));
+            header("Location: index.php?topic=$topicId");
+            exit();
+        }
+        if (isset($_POST['action']) && $_POST['action'] === 'delete_comment') {
+        $topicID = $_POST['topic'];
+        $index = (int)$_POST['index'];
+
+        if (isset($comments[$topicID]) && isset($comments[$topicID][$index])) {
+        array_splice($comments[$topicID], $index, 1);
+
+        if (empty($comments[$topicID])) {
+            unset($comments[$topicID]);
+        }
+                file_put_contents($comments_file, json_encode($comments, JSON_PRETTY_PRINT));
+            }
+        }
     ?>
 
     <!DOCTYPE html>
@@ -113,35 +139,6 @@
         </Form>
         <br>
         <?php
-
-        if (isset($_GET['comment']) && isset($_GET['topic'])) {   
-            $commentText = trim($_GET['comment']);
-            $commentName = trim($_GET['name']);
-            $topicId = $_GET['topic'];
-            if(!isset($comments[$topicId])){
-                $comments[$topicId] = [];
-            }
-            $comments[$topicId][] = ["comment" => $commentText, "time" => $time, "name" => $commentName];
-            file_put_contents($comments_file, json_encode($comments, JSON_PRETTY_PRINT));
-            header("Location: index.php?topic=$topicId");
-            exit();
-        }
-        if (isset($_POST['action']) && $_POST['action'] === 'delete_comment') {
-        $topicID = $_POST['topic'];
-        $index = (int)$_POST['index'];
-
-        if (isset($comments[$topicID]) && isset($comments[$topicID][$index])) {
-        array_splice($comments[$topicID], $index, 1);
-
-        if (empty($comments[$topicID])) {
-            unset($comments[$topicID]);
-        }
-                file_put_contents($comments_file, json_encode($comments, JSON_PRETTY_PRINT));
-            }
-        }
-
-    ?>
-    <?php
         if (isset($_GET['topic'])) {
         echo '<form method="GET">
             <input type="hidden" name="topic" value="' . $_GET['topic'] . '">
