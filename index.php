@@ -93,7 +93,7 @@
                     echo $comment['name'] . ": ". $comment['comment']. " (" . $comment['time']. ")
                      <form method = 'post'>
                      <input type='hidden' name='action' value='delete_comment'>
-                     <input type='hidden' name='topic' value='". $topicName. "'>
+                     <input type='hidden' name='topic' value='". $topicID. "'>
                      <input type='hidden' name='index' value='". $index."'>
                      <input type='submit' value='Törlés'>
                      </form>";
